@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <h3>This is the vehicle list page.</h3>
+
+  <ul id="media-vehicle-list" class="media-list">
+    {% for vehicle in vehicles %}
+    <li class="media vehicle-list-item">
+      <div class="media-left">
+        <a href="#">
+          <img class="media-object" src="http://via.placeholder.com/150x150" alt="{{ vehicle.id }} photo">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Plate: {{ vehicle.plate }}</h4>
+        <ul>
+          {% if vehicle.government %}
+          <li>Government vehicle</li>
+          {% endif %}
+          <li>{{ vehicle.signage_front }}</li>
+          <li>{{ vehicle.signage_back }}</li>
+        </ul>
+      </div>
+
+      {% if vehicle.reports %}
+      <div class="vehicle-list-reports">
+        <h4>Reports</h4>
+        {% for report in vehicle.reports %}
+        <div class="media vehicle-report-item">
+          <a class="pull-left" href="#">
+            <img class="media-object" src="http://via.placeholder.com/100x100" alt="{{ report.id }} report">
+          </a>
+          <div class="media-body">
+           <h4 class="media-heading">Report: {{ report.accusation.name }}</h4>
+            {{ report.time }}
+            {{ report.area }}
+           </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

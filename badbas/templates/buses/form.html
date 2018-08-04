@@ -1,0 +1,33 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-narrow">
+  <h1>New Bus</h1>
+    <br/>
+    <form id="busForm" class="form form-bus" method="POST" action="" role="form">
+      {{ form.csrf_token }}
+      <div class="form-group">
+        {{ form.plate.label }}
+        {{ form.plate(placeholder="Plate Number", class_="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.color.label }}
+        {{ form.color(placeholder="Color: Red, White, Blue...", class_="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.signage_front.label }}
+        {{ form.signage_front(placeholder="", class_="form-control") }}
+
+        {{ form.signage_back.label }}
+        {{ form.signage_back(placeholder="", class_="form-control") }}
+
+        {{ form.signage_left.label }}
+        {{ form.signage_left(placeholder="", class_="form-control") }}
+
+        {{ form.signage_right.label }}
+        {{ form.signage_right(placeholder="", class_="form-control") }}
+      </div>
+      <p><input class="btn btn-default btn-submit" type="submit" value="Submit"></p>
+    </form>
+</div>
+{% endblock %}
