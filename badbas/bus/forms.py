@@ -48,12 +48,12 @@ class ReportForm(FlaskForm):
     """
     A Report Form.
     """
-    accusation_id = SelectField('Accusation', choices=[])
+    accusation_id = SelectField('Accusation', choices=[], coerce=int)
 
     lat = FloatField('Latitude')
     lng = FloatField('Longitude')
     area = StringField('Area', validators=[DataRequired(), Length(min=3, max=32)])
-    time = RadioField('When', choices=[])
+    time = SelectField('When', choices=[], coerce=int)
 
     def validate(self):
         initial_validation = super(ReportForm, self).validate()

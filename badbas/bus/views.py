@@ -11,19 +11,19 @@ from badbas.utils import flash_errors
 from .models import Bus, Report, Accusation
 from .forms import BusForm, ReportForm
 
-blueprint = Blueprint('bus', __name__, url_prefix='/bus', static_folder='../static')
+blueprint = Blueprint('vehicle', __name__, url_prefix='/vehicle', static_folder='../static')
 
 
 @blueprint.route('/list')
 def list():
     """List buses."""
-    buses = Bus.query.all()
-    return render_template('buses/list.html', vehicles=buses)
+    vehicles = Bus.query.all()
+    return render_template('vehicles/list.html', vehicles=vehicles)
 
 
 @blueprint.route('/search')
 def search():
-    """Search Buses."""
+    """Search vehicles."""
     pass
 
 
@@ -47,16 +47,17 @@ def new():
             return redirect(url_for('.list'))
         else:
             flash_errors(form)
-    return render_template('buses/form.html', form=form)
+    return render_template('vehicles/form.html', form=form)
 
 
 @blueprint.route('/<int:id>')
-def bus(id):
+def vehicle(id):
     try:
-        bus = Bus.query.filter_by(id=id).one()
+        vehicle = Bus.query.filter_by(id=id).one()
     except NoResultFound:
         return abort(404)
-    pass
+
+    return render_template('vehicles/vehicle.html', vehicle=vehicle)
 
 
 @blueprint.route('/reports')
@@ -119,6 +120,7 @@ def reports_new(bus_id):
         return redirect(url_for('.list'))
     form = ReportForm()
     form.time.choices, selection_datetimes = make_time_choices()
+    form.accusation_id.choices = AccusationList()
     if request.method == 'POST':
         if form.validate_on_submit():
             report = Report()
@@ -132,5 +134,4 @@ def reports_new(bus_id):
             return redirect(url_for('.bus', id=bus_id))
         else:
             flash_errors(form)
-    form.accusation_id.choices = AccusationList()
-    return render_template('buses/form_report.html', form=form)
+    return render_template('vehicles/form_report.html', form=form)
