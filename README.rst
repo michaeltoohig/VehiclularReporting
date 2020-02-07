@@ -2,7 +2,7 @@
 Bad Bus Bulletin
 ===============================
 
-Bulletin of Bad Busses in Vanuatu
+Bulletin of Bad Busses
 
 
 Quickstart
